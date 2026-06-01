@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#ffffff" />
+<title>시드니 여행계획서 · 6박 7일 가족여행</title>
+<style>
+  :root {
+    --blue: #0071e3;
+    --ink: #1d1d1f;
+    --gray: #6e6e73;
+    --gray2: #86868b;
+    --line: #e8e8ed;
+    --card: #f5f5f7;
+    --radius: 20px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.06);
+    --hi: #ff453a;     /* 강도 고 */
+    --mid: #ff9f0a;    /* 강도 중 */
+    --lo: #34c759;     /* 강도 저 */
+    --vlo: #30b0c7;    /* 매우 낮음 */
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+                 "Helvetica Neue", "Apple SD Gothic Neo", system-ui, sans-serif;
+    background: #ffffff;
+    color: var(--ink);
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 0 20px 80px; }
+
+  /* ===== Nav ===== */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    max-width: 480px; margin: 0 auto; padding: 12px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-title { font-size: 17px; font-weight: 600; }
+  .nav-tag { font-size: 12px; color: var(--gray2); }
+
+  /* ===== Hero ===== */
+  .hero { padding: 52px 0 36px; text-align: center; }
+  .hero .eyebrow {
+    color: var(--blue); font-weight: 600; font-size: 17px; letter-spacing: 0;
+    margin-bottom: 8px;
+  }
+  .hero h1 {
+    font-size: 40px; font-weight: 700; line-height: 1.08;
+    letter-spacing: -0.03em; margin-bottom: 16px;
+  }
+  .hero .meta { font-size: 15px; color: var(--gray); }
+  .hero .meta b { color: var(--ink); font-weight: 600; }
+
+  /* ===== 대표 코스 highlights ===== */
+  .hl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .hl {
+    display: block; text-decoration: none; color: inherit;
+    background: #fff; border: 1px solid var(--line); border-radius: 18px;
+    padding: 18px 16px; box-shadow: var(--shadow); transition: transform .15s ease;
+  }
+  .hl:active { transform: scale(0.97); }
+  .hl .ic { font-size: 30px; line-height: 1; }
+  .hl .n { font-size: 17px; font-weight: 700; margin-top: 12px; letter-spacing: -0.02em; }
+  .hl .d { font-size: 12px; color: var(--gray2); margin-top: 3px; font-weight: 600; }
+
+  /* ===== Section ===== */
+  .section { padding-top: 44px; }
+  .section-head { margin-bottom: 18px; }
+  .section-head h2 {
+    font-size: 27px; font-weight: 700; letter-spacing: -0.02em;
+  }
+  .section-head p { font-size: 15px; color: var(--gray); margin-top: 4px; }
+
+  /* ===== Card ===== */
+  .card {
+    background: #ffffff; border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 22px; margin-bottom: 14px;
+    box-shadow: var(--shadow);
+  }
+  .card.flat { box-shadow: none; background: var(--card); border: none; }
+
+  /* ===== Intensity badge ===== */
+  .badge {
+    display: inline-block; font-size: 11px; font-weight: 700; color: #fff;
+    border-radius: 980px; padding: 2px 8px; line-height: 1.5; white-space: nowrap;
+    vertical-align: middle;
+  }
+  .b-hi { background: var(--hi); }
+  .b-mid { background: var(--mid); }
+  .b-lo { background: var(--lo); }
+  .b-vlo { background: var(--vlo); }
+
+  /* ===== Day card (요약+상세 통합 아코디언) ===== */
+  .acc { background:#fff; border:1px solid var(--line); border-radius:18px;
+         margin-bottom:12px; box-shadow: var(--shadow); overflow:hidden;
+         scroll-margin-top: 72px; }
+  .acc-head {
+    display:flex; align-items:center; gap:14px; padding:16px 18px; cursor:pointer;
+    user-select:none;
+  }
+  .acc-head .dd {
+    flex:0 0 46px; text-align:center;
+  }
+  .acc-head .dd .d { font-size:21px; font-weight:700; line-height:1; }
+  .acc-head .dd .w { font-size:12px; color:var(--gray2); margin-top:3px; }
+  .acc-head .ht { flex:1; min-width:0; }
+  .acc-head .ht .t { font-size:17px; font-weight:600; letter-spacing:-0.02em; }
+  .acc-head .ht .s {
+    font-size:12px; color:var(--gray2); margin-top:3px;
+    display:flex; align-items:center; gap:6px;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+  .acc-head .plus { flex:0 0 auto; color:var(--gray2); font-size:24px; font-weight:300;
+                    transition: transform .25s ease; }
+  .acc.open .acc-head .plus { transform: rotate(45deg); }
+  .acc-body {
+    max-height:0; overflow:hidden; transition: max-height .35s ease;
+  }
+  .acc-inner { padding: 0 20px 20px; }
+  .row { display:flex; gap:10px; padding:11px 0; border-top:1px solid var(--line); font-size:14px; }
+  .row:first-child { border-top:none; }
+  .row .k {
+    flex:0 0 60px; font-weight:600; color:var(--blue); font-size:13px; padding-top:1px;
+  }
+  .row .v { flex:1; color:var(--ink); }
+  .row .v .sub { color:var(--gray); font-size:13px; }
+  .tip {
+    margin-top:14px; background:#f5f9ff; border:1px solid #d8e8ff; border-radius:12px;
+    padding:12px 14px; font-size:13px; color:#0a4a8f;
+  }
+  .tip.rain { background:#f1f7f2; border-color:#cfe9d4; color:#1d6b34; }
+  .tip b { font-weight:700; }
+
+  /* ===== Klook thumbnail gallery ===== */
+  .gallery { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin:2px 0 14px; }
+  .gallery img {
+    width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:10px;
+    display:block; background:var(--card); border:1px solid var(--line);
+  }
+  .gallery-cap {
+    font-size:11px; font-weight:600; color:var(--gray2);
+    margin:0 0 7px; display:flex; align-items:center; gap:5px;
+  }
+  .gallery-cap::before { content:"📷"; font-size:11px; }
+  .gallery img { cursor:zoom-in; transition:transform .15s ease; }
+  .gallery img:active { transform:scale(0.96); }
+
+  /* ===== Lightbox ===== */
+  .lb {
+    position:fixed; inset:0; z-index:100; display:none;
+    background:rgba(0,0,0,0.92);
+    -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);
+    align-items:center; justify-content:center;
+    opacity:0; transition:opacity .22s ease;
+  }
+  .lb.show { display:flex; opacity:1; }
+  .lb-img {
+    max-width:92vw; max-height:80vh; border-radius:14px; display:block;
+    box-shadow:0 12px 50px rgba(0,0,0,0.5);
+    -webkit-user-select:none; user-select:none;
+  }
+  .lb-close {
+    position:absolute; top:max(16px,env(safe-area-inset-top)); right:18px;
+    width:40px; height:40px; border-radius:50%;
+    background:rgba(255,255,255,0.16); color:#fff; border:none;
+    font-size:22px; line-height:1; cursor:pointer; display:flex;
+    align-items:center; justify-content:center;
+  }
+  .lb-nav {
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:46px; height:46px; border-radius:50%;
+    background:rgba(255,255,255,0.16); color:#fff; border:none;
+    font-size:24px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  }
+  .lb-prev { left:14px; }
+  .lb-next { right:14px; }
+  .lb-count {
+    position:absolute; bottom:max(24px,env(safe-area-inset-bottom)); left:0; right:0;
+    text-align:center; color:rgba(255,255,255,0.85); font-size:13px; font-weight:600;
+    letter-spacing:0.04em;
+  }
+  @media (hover:none) { .lb-nav { background:rgba(255,255,255,0.12); } }
+
+  /* ===== Checklist ===== */
+  .check-item { display:flex; gap:12px; padding:13px 0; border-top:1px solid var(--line); }
+  .check-item:first-child { border-top:none; }
+  .ck {
+    flex:0 0 22px; height:22px; border-radius:7px; border:2px solid var(--blue);
+    display:flex; align-items:center; justify-content:center; color:var(--blue);
+    font-size:13px; font-weight:700; margin-top:1px;
+  }
+  .check-item .ci-b { flex:1; }
+  .check-item .ci-t { font-size:15px; font-weight:600; }
+  .check-item .ci-s { font-size:13px; color:var(--gray); margin-top:2px; }
+
+  /* ===== Cost table ===== */
+  .cost-row { display:flex; justify-content:space-between; align-items:baseline;
+              padding:12px 0; border-top:1px solid var(--line); font-size:15px; }
+  .cost-row:first-child { border-top:none; }
+  .cost-row .c-name { color:var(--ink); }
+  .cost-row .c-name .cs { display:block; font-size:12px; color:var(--gray2); }
+  .cost-row .c-val { font-weight:600; white-space:nowrap; }
+  .cost-total { display:flex; justify-content:space-between; margin-top:8px; padding-top:16px;
+                border-top:2px solid var(--ink); font-size:17px; font-weight:700; }
+
+  /* ===== Notice list ===== */
+  .nlist li { list-style:none; padding:12px 0 12px 26px; position:relative;
+              border-top:1px solid var(--line); font-size:14px; color:var(--ink); }
+  .nlist li:first-child { border-top:none; }
+  .nlist li::before { content:"›"; position:absolute; left:6px; top:11px; color:var(--blue);
+                      font-weight:700; font-size:16px; }
+  .nlist li b { font-weight:600; }
+  .warn { background:#fff7f0; border-color:#ffe0c2; }
+
+  /* ===== Hotel ===== */
+  .hotel-card { padding:0; overflow:hidden; }
+  .hotel-img { width:100%; display:block; aspect-ratio:1200/628; object-fit:cover; background:var(--card); }
+  .hotel-inner { padding:22px; }
+  .hotel-name { font-size:20px; font-weight:700; letter-spacing:-0.02em; }
+  .hotel-tag { display:inline-block; font-size:12px; font-weight:700; color:#1d8a43;
+               background:#e7f7ec; border-radius:980px; padding:4px 11px; margin:9px 0 4px; }
+  .hotel-meta { font-size:14px; margin:12px 0 14px; }
+  .hotel-meta .mrow { display:flex; gap:10px; padding:7px 0; border-top:1px solid var(--line); }
+  .hotel-meta .mrow:first-child { border-top:none; }
+  .hotel-meta .mk { flex:0 0 56px; color:var(--gray2); font-size:13px; font-weight:600; }
+  .hotel-meta .mv { flex:1; color:var(--ink); }
+  .hotel-meta .mv a { color:var(--blue); text-decoration:none; }
+  .hotel-why { font-size:14px; color:var(--gray); line-height:1.65; }
+  .hotel-why b { color:var(--ink); font-weight:600; }
+  .hotel-map { margin-top:16px; border-radius:14px; overflow:hidden; border:1px solid var(--line); }
+  .hotel-map iframe { width:100%; height:200px; border:0; display:block; }
+
+  .foot { text-align:center; padding:48px 0 0; color:var(--gray2); font-size:13px; line-height:1.7; }
+  .foot .em { font-size:22px; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-title">🌏 시드니 여행계획</div>
+    <div class="nav-tag">6박 7일 · 가족 4인</div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="eyebrow">Sydney Family Trip</div>
+    <h1>시드니 6박 7일</h1>
+    <p class="meta"><b>2026. 6. 27(토) ~ 7. 3(금)</b><br>가족 4인 · 80세 어머니 동반</p>
+  </header>
+
+  <!-- 대표 코스 -->
+  <section class="section" id="highlights" style="padding-top:8px;">
+    <div class="section-head"><h2>대표 코스</h2><p>카드를 누르면 해당 일정으로 이동합니다.</p></div>
+    <div class="hl-grid">
+      <a class="hl" href="#d3"><div class="ic">⛰️</div><div class="n">블루마운틴</div><div class="d">6/29 월</div></a>
+      <a class="hl" href="#d4"><div class="ic">🌊</div><div class="n">울릉공 &amp; 키아마</div><div class="d">6/30 화</div></a>
+      <a class="hl" href="#d6"><div class="ic">🐋</div><div class="n">고래 크루즈</div><div class="d">7/2 목</div></a>
+      <a class="hl" href="#d2"><div class="ic">🎭</div><div class="n">오페라하우스</div><div class="d">6/28 일</div></a>
+    </div>
+  </section>
+
+  <!-- 전체 일정 (요약+상세 통합) -->
+  <section class="section" id="detail">
+    <div class="section-head">
+      <h2>전체 일정</h2>
+      <p>날짜를 누르면 상세가 펼쳐집니다.</p>
+    </div>
+
+    <!-- Day 1 -->
+    <div class="acc" id="d1">
+      <div class="acc-head"><div class="dd"><div class="d">27</div><div class="w">토</div></div>
+        <div class="ht"><div class="t">도착 · 적응</div><div class="s"><span class="badge b-vlo">매우낮음</span> 인천→시드니 · 도보 ≤0.8km</div></div>
+        <div class="plus">+</div></div>
+      <div class="acc-body"><div class="acc-inner">
+        <div class="row"><div class="k">비행</div><div class="v">인천(ICN)→시드니(SYD) 직항 약 10~10.5h. <span class="sub">입국카드에 어머니 복용약 ‘YES’ 신고, 영문 처방전 지참.</span></div></div>
+        <div class="row"><div class="k">공항→CBD</div><div class="v">확정 공항픽업 활용(짐은 자녀가). <span class="sub">대안 택시 정액 AUD 60 / 맥시캡 AUD 80.</span></div></div>
+        <div class="row"><div class="k">오후</div><div class="v">(옵션) 반일투어 14:30 출발/16:00 복귀 — 본다이·동부해안·시드니대. <span class="sub">본다이는 프롬나드 평지 조망만. 무리 시 차창 관람.</span></div></div>
+        <div class="row"><div class="k">저녁</div><div class="v">체크인 후 마트 장보기(죽·즉석밥·핫팩). 아파트 취사 또는 가벼운 식사로 조기 종료.</div></div>
+        <div class="tip">💡 <b>비행 직후 피로 회복 최우선.</b> 밤 약 8℃ → 방한복 바로 착용. “되면 하고 무리면 줄인다.”</div>
+        <div class="tip rain">☔ 우천대안: 반일투어 차창 관람 + 조기 휴식.</div>
+      </div></div>
+    </div>
+
+    <!-- Day 2 -->
+    <div class="acc" id="d2">
+      <div class="acc-head"><div class="dd"><div class="d">28</div><div class="w">일</div></div>
+        <div class="ht"><div class="t">충전 · 자유</div><div class="s"><span class="badge b-lo">저</span> 오페라하우스·보태닉가든 · 도보 ≤1.5km</div></div>
+        <div class="plus">+</div></div>
+      <div class="acc-body"><div class="acc-inner">
+        <div class="gallery-cap">오페라하우스 · 서큘러키</div>
+        <div class="gallery">
+          <img src="assets/klook/opera-1.webp" alt="시드니 오페라하우스" loading="lazy" />
+          <img src="assets/klook/opera-2.webp" alt="시드니 오페라하우스" loading="lazy" />
+          <img src="assets/klook/opera-3.webp" alt="시드니 오페라하우스" loading="lazy" />
+          <img src="assets/klook/opera-4.webp" alt="시드니 오페라하우스" loading="lazy" />
+        </div>
+        <div class="row"><div class="k">오전</div><div class="v">늦잠·아파트 조식. 컨디션 좋으면 택시로 서큘러키 이동.</div></div>
+        <div class="row"><div class="k">오후</div><div class="v">오페라하우스 포어코트(평지) → 로열보태닉가든 워터라인(평탄). <span class="sub">계단 없는 진입·물가 평지만, 내부 경사 배제. 무료 휠체어 대여(10~16시).</span></div></div>
+        <div class="row"><div class="k">점심</div><div class="v">CBD 착석 식사 60~90분.</div></div>
+        <div class="row"><div class="k">저녁</div><div class="v">달링하버 Nick’s Seafood(부드러운 생선) 또는 아파트 취사 한식. <span class="sub">투어 전날 가벼운 식사 권장.</span></div></div>
+        <div class="tip">💡 <b>다음날 07:20 출발 대비 일찍 취침.</b> 오늘 무리하지 않는 것이 6/29·6/30 컨디션의 핵심.</div>
+        <div class="tip rain">☔ 우천/혹한: QVB → 피트스트리트몰 → Westfield 실내 쇼핑(엘리베이터·실내 연결).</div>
+      </div></div>
+    </div>
+
+    <!-- Day 3 -->
+    <div class="acc" id="d3">
+      <div class="acc-head"><div class="dd"><div class="d">29</div><div class="w">월</div></div>
+        <div class="ht"><div class="t">블루마운틴 투어</div><div class="s"><span class="badge b-hi">고</span> 시닉월드·페더데일 · 07:20~17:10</div></div>
+        <div class="plus">+</div></div>
+      <div class="acc-body"><div class="acc-inner">
+        <div class="gallery-cap">블루마운틴 · 시닉월드 · 페더데일</div>
+        <div class="gallery">
+          <img src="assets/klook/bluemountains-1.webp" alt="블루마운틴" loading="lazy" />
+          <img src="assets/klook/bluemountains-2.webp" alt="블루마운틴" loading="lazy" />
+          <img src="assets/klook/bluemountains-3.webp" alt="블루마운틴" loading="lazy" />
+          <img src="assets/klook/bluemountains-4.webp" alt="블루마운틴" loading="lazy" />
+        </div>
+        <div class="row"><div class="k">새벽</div><div class="v">05:30~06:30 기상·따뜻한 죽 조식. 방한복 풀착장(7~9℃)+핫팩.</div></div>
+        <div class="row"><div class="k">미팅</div><div class="v">06:50경 호텔→SEA LIFE 아쿠아리움(달링하버) Uber 5~10분. 07:20 출발.</div></div>
+        <div class="row"><div class="k">시닉월드</div><div class="v">케이블웨이·스카이웨이 중심(완만·휠체어 접근). <span class="sub">도보 트레일 전면 배제, 보드워크 최단 10분만.</span></div></div>
+        <div class="row"><div class="k">에코포인트</div><div class="v">세자매봉 — 주차장→상부 플랫폼 평지·step-free, 벤치 다수. <span class="sub">Giant Stairway(433계단) 절대 배제.</span></div></div>
+        <div class="row"><div class="k">페더데일</div><div class="v">평탄·휠체어 접근, 코알라·캥거루 먹이주기(어머니 특별관심).</div></div>
+        <div class="row"><div class="k">저녁</div><div class="v">17:10 복귀 후 아파트 취사 죽/한식. <span class="sub">일몰 16:56 → 외출 최소.</span></div></div>
+        <div class="tip">💡 각 정차지 보행 최소. 화장실: 시닉월드·에코포인트·페더데일에서 2시간 간격 충족.</div>
+        <div class="tip rain">☔ 우천대안: 시닉월드 실내 터미널·케이블 라이드는 우천에도 운영.</div>
+      </div></div>
+    </div>
+
+    <!-- Day 4 -->
+    <div class="acc" id="d4">
+      <div class="acc-head"><div class="dd"><div class="d">30</div><div class="w">화</div></div>
+        <div class="ht"><div class="t">울릉공 &amp; 키아마 투어</div><div class="s"><span class="badge b-hi">고</span> 예약 확정 · 08:00~17:00</div></div>
+        <div class="plus">+</div></div>
+      <div class="acc-body"><div class="acc-inner">
+        <div class="gallery-cap">울릉공 · 씨클리프브리지 · 키아마 블로우홀</div>
+        <div class="gallery">
+          <img src="assets/klook/wollongong-1.webp" alt="울릉공 & 키아마" loading="lazy" />
+          <img src="assets/klook/wollongong-2.webp" alt="울릉공 & 키아마" loading="lazy" />
+          <img src="assets/klook/wollongong-3.webp" alt="울릉공 & 키아마" loading="lazy" />
+          <img src="assets/klook/wollongong-4.webp" alt="울릉공 & 키아마" loading="lazy" />
+        </div>
+        <div class="row"><div class="k">미팅</div><div class="v">07:30경 호텔→SEA LIFE 아쿠아리움 Uber. 08:00 출발. <span class="sub">좌석 = 오른쪽(바다뷰) 지정.</span></div></div>
+        <div class="row"><div class="k">볼드힐</div><div class="v">평탄·step-free, 주차장에서 바로 조망.</div></div>
+        <div class="row"><div class="k">씨클리프</div><div class="v">다리 위/인근 정차 조망만. <span class="sub">‘비밀 전망대’ 트랙(가파름)은 가이드에 사전 제외 요청.</span></div></div>
+        <div class="row"><div class="k">키아마</div><div class="v">블로우홀 상부 전망대(휠체어 접근·평탄)에서만. <span class="sub">하부 계단 전망대 배제. 인접 Diggies Cafe·24h 화장실.</span></div></div>
+        <div class="row"><div class="k">저녁</div><div class="v">17:00 복귀 후 아파트 취사·가벼운 식사. <span class="sub">연속 투어 2일차 — 외출 최소·일찍 취침.</span></div></div>
+        <div class="tip">💡 <b>이번 여행 최대 부담 구간.</b> 차내 휴식·담요 적극 활용. 다음날 7/1은 회복일로 비워둠.</div>
+        <div class="tip rain">☔ 우천대안: 볼드힐 차창 조망, 블로우홀은 우천 시 분출 더 활발.</div>
+      </div></div>
+    </div>
+
+    <!-- Day 5 -->
+    <div class="acc" id="d5">
+      <div class="acc-head"><div class="dd"><div class="d">1</div><div class="w">수</div></div>
+        <div class="ht"><div class="t">회복 · 쇼핑</div><div class="s"><span class="badge b-lo">저</span> QVB·핫토이·레고 · 택시 이동 쇼핑</div></div>
+        <div class="plus">+</div></div>
+      <div class="acc-body"><div class="acc-inner">
+        <div class="gallery-cap">QVB · 레고스토어 · 핫토이 · 웨스트필드</div>
+        <div class="gallery">
+          <img src="assets/shop/qvb.jpg" alt="퀸 빅토리아 빌딩(QVB)" loading="lazy" />
+          <img src="assets/shop/lego.jpg" alt="레고 스토어" loading="lazy" />
+          <img src="assets/shop/hottoys.jpg" alt="핫토이 컬렉터블" loading="lazy" />
+          <img src="assets/shop/westfield.jpg" alt="웨스트필드 시드니" loading="lazy" />
+        </div>
+        <div class="row"><div class="k">오전</div><div class="v">늦잠·호텔 휴식. 마트 재보충(다음날 크루즈 대비 따뜻한 음료·핫팩).</div></div>
+        <div class="row"><div class="k">점심</div><div class="v">출발 전 CBD 착석 카페에서 점심(소프트 메뉴).</div></div>
+        <div class="row"><div class="k">오후①</div><div class="v"><b>CBD 실내 쇼핑</b> — 택시로 QVB → 피트스트리트몰 → Westfield. <span class="sub">전 층 엘리베이터·평지·실내 연결 = 우천 무관. 컨디션 따라 자유 단축.</span></div></div>
+        <div class="row"><div class="k">오후②</div><div class="v"><b>핫토이 · Sugo Toys 헤이마켓 시티점</b> (Hot Toys 프리미엄 피규어). <span class="sub">Shop 15, 79 Quay St, Haymarket · 호텔/CBD에서 <b>택시 약 5분(~1km)</b> · 평일 약 10:00~19:00 · 실내·소규모.</span></div></div>
+        <div class="row"><div class="k">오후③</div><div class="v"><b>레고 · LEGO Certified Store 본디정션</b> (웨스트필드 본디정션 Level 3). <span class="sub">500 Oxford St, Bondi Junction · <b>택시 약 20분</b> · 수요일 9:30~18:00(18시 전 도착) · 대형 실내몰·엘리베이터·착석 가능. 🔎 영업 여부·시간 사전 확인.</span></div></div>
+        <div class="row"><div class="k">복귀</div><div class="v">본디정션 → 호텔 택시 약 20분.</div></div>
+        <div class="row"><div class="k">저녁</div><div class="v">한식 Sil Bi Jip(국물·덮밥·죽) 또는 Kood(가정식). 가벼운 착석 식사.</div></div>
+        <div class="tip">💡 <b>다음날 크루즈+야경 이중 일정 대비 충분한 휴식이 핵심.</b> 쇼핑 외출이 부담되면 <b>먼 본디정션(레고)은 생략하고 가까운 헤이마켓(핫토이)만</b> 다녀오세요. 방한 풀세트·핫팩·보온병 전날 패킹, 멀미약 복용 가부 최종 확인.</div>
+      </div></div>
+    </div>
+
+    <!-- Day 6 -->
+    <div class="acc" id="d6">
+      <div class="acc-head"><div class="dd"><div class="d">2</div><div class="w">목</div></div>
+        <div class="ht"><div class="t">고래크루즈 + 야경</div><div class="s"><span class="badge b-mid">중</span> 오전 크루즈·저녁 야경 · 도보 ≤1km</div></div>
+        <div class="plus">+</div></div>
+      <div class="acc-body"><div class="acc-inner">
+        <div class="gallery-cap">고래 관찰 크루즈 (Captain Cook)</div>
+        <div class="gallery">
+          <img src="assets/klook/whale-1.webp" alt="고래 관찰 크루즈" loading="lazy" />
+          <img src="assets/klook/whale-2.webp" alt="고래 관찰 크루즈" loading="lazy" />
+          <img src="assets/klook/whale-3.webp" alt="고래 관찰 크루즈" loading="lazy" />
+          <img src="assets/klook/whale-4.webp" alt="고래 관찰 크루즈" loading="lazy" />
+        </div>
+        <div class="row"><div class="k">아침</div><div class="v">08:00~09:00 가벼운 조식. 멀미약 승선 30~60분 전 복용. 방한 풀착장+핫팩·보온병.</div></div>
+        <div class="row"><div class="k">크루즈</div><div class="v">09:30~12:00 서큘러키 워프 No.6, Captain Cook. <span class="sub">실내 라운지석=방한 핵심, 배 중앙·낮은 층=멀미 최소. 미목격 시 무료 재승선.</span></div></div>
+        <div class="row"><div class="k">오후</div><div class="v">하선 후 서큘러키 카페 착석(따뜻한 메뉴) → 숙소 휴식 2~3h. <span class="sub">크루즈와 야경 사이 회복 구간 확보.</span></div></div>
+        <div class="gallery-cap" style="margin-top:4px;">시드니 야경 투어</div>
+        <div class="gallery">
+          <img src="assets/klook/night-1.webp" alt="시드니 야경 투어" loading="lazy" />
+          <img src="assets/klook/night-2.webp" alt="시드니 야경 투어" loading="lazy" />
+          <img src="assets/klook/night-3.webp" alt="시드니 야경 투어" loading="lazy" />
+          <img src="assets/klook/night-4.webp" alt="시드니 야경 투어" loading="lazy" />
+        </div>
+        <div class="row"><div class="k">저녁</div><div class="v">야경투어 1.5h(예정대로). <span class="sub">겨울 일몰 ~16:57 → 일찍 종료. 컨디션 따라 당일 스킵·자녀만 참여 가능(환불 규정 확인).</span></div></div>
+        <div class="tip">💡 <b>유일한 야간 일정 — 이중 일정 피로가 최대 변수.</b> 오후 휴식 반드시 확보. 멀미: 진행방향 응시·공복/과식 회피.</div>
+        <div class="tip rain">☔ 결항 백업: 취소 시 서큘러키 실내 휴식·QVB 실내 쇼핑으로 대체.</div>
+      </div></div>
+    </div>
+
+    <!-- Day 7 -->
+    <div class="acc" id="d7">
+      <div class="acc-head"><div class="dd"><div class="d">3</div><div class="w">금</div></div>
+        <div class="ht"><div class="t">귀국</div><div class="s"><span class="badge b-vlo">낮음</span> 시드니→인천 · 도보 ≤0.6km</div></div>
+        <div class="plus">+</div></div>
+      <div class="acc-body"><div class="acc-inner">
+        <div class="row"><div class="k">오전</div><div class="v">충분한 휴식 후 체크아웃, 식재료 정리. 택시/픽업으로 공항(정액 AUD 60). 공항 휠체어 서비스 활용.</div></div>
+        <div class="row"><div class="k">비행</div><div class="v">시드니→인천 약 10.5h. 통로석·특별식, 1시간마다 통로 보행·스트레칭.</div></div>
+        <div class="tip">💡 <b>귀국일 강도 최소</b> — 오전 일정 없이 휴식·이동만. 오전 출발편이면 전날 야경투어 스킵 고려.</div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- 숙소 -->
+  <section class="section" id="hotel">
+    <div class="section-head"><h2>숙소</h2></div>
+    <div class="card hotel-card">
+      <img class="hotel-img" src="assets/hotel-kent-street.jpg"
+           alt="Meriton Suites Kent Street, Sydney" loading="lazy" />
+      <div class="hotel-inner">
+        <div class="hotel-name">Meriton Suites Kent Street</div>
+        <div><span class="hotel-tag">✓ 예약 확정 · 아고다(Agoda)</span></div>
+        <div class="hotel-meta">
+          <div class="mrow"><div class="mk">일정</div><div class="mv"><b>6/27(토) 체크인 ~ 7/3(금) 체크아웃</b> · 6박</div></div>
+          <div class="mrow"><div class="mk">주소</div><div class="mv">528 Kent Street, Sydney NSW 2000<br>
+            <a href="https://maps.google.com/?q=528+Kent+Street+Sydney+NSW+2000" target="_blank" rel="noopener">지도에서 열기 ›</a></div></div>
+          <div class="mrow"><div class="mk">유형</div><div class="mv">아파트형 서비스드 스위트 · 주방·세탁기 완비</div></div>
+        </div>
+        <div class="hotel-why">
+          ① <b>아파트형(취사·세탁)</b> → 마트 장보기 + 어머니 죽/한식 호텔 취식, 장기 체류 편의<br>
+          ② <b>달링하버 인접</b> → 블루마운틴·울릉공 투어 미팅(SEA LIFE 아쿠아리움) 도보권, 월드스퀘어(블루마운틴 드롭) 인접<br>
+          ③ <b>타운홀역·QVB·피트스트리트몰</b>(7/1 실내 쇼핑) 도보권 ④ 실내 수영장·사우나·체육관, 엘리베이터<br>
+          <span style="color:var(--gray2);font-size:13px;">※ 서큘러키(고래크루즈·야경 미팅)는 택시 약 10분. 객실 내 세탁기·주방으로 어머니 식사·세탁 편의 우선.</span>
+        </div>
+        <div class="hotel-map">
+          <iframe src="https://maps.google.com/maps?q=528%20Kent%20Street%20Sydney%20NSW%202000&z=16&output=embed"
+                  loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Meriton Suites Kent Street 위치"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 출발 전 체크리스트 -->
+  <section class="section" id="check">
+    <div class="section-head"><h2>출발 전 체크리스트</h2><p>1~2주 전 완료 권장</p></div>
+    <div class="card">
+      <div class="check-item"><div class="ck">✓</div><div class="ci-b">
+        <div class="ci-t">호주 ETA(601) 4인 발급</div>
+        <div class="ci-s">“Australian ETA” 앱 · 약 AUD 20/인 · 전자여권 필수</div></div></div>
+      <div class="check-item"><div class="ck">✓</div><div class="ci-b">
+        <div class="ci-t">여권 잔여 유효기간 6개월 이상</div>
+        <div class="ci-s">2026-12-27 이후 만기 · 어머니 전자여권 여부 우선 확인</div></div></div>
+      <div class="check-item"><div class="ck">✓</div><div class="ci-b">
+        <div class="ci-t">80세 포함 여행자보험</div>
+        <div class="ci-s">응급의료 1억+·지병 고지 · 출국 후 가입 불가</div></div></div>
+      <div class="check-item"><div class="ck">✓</div><div class="ci-b">
+        <div class="ci-t">어머니 복용약 영문 처방전</div>
+        <div class="ci-s">원본 포장(최대 3개월분) · 입국 시 ‘YES’ 신고</div></div></div>
+      <div class="check-item"><div class="ck">✓</div><div class="ci-b">
+        <div class="ci-t">멀미약 복용 가부 의사·약사 상담</div>
+        <div class="ci-s">약물 상호작용 · 7/2 크루즈 전 필수</div></div></div>
+      <div class="check-item"><div class="ck">✓</div><div class="ci-b">
+        <div class="ci-t">방한 풀세트 + 핫팩 다량</div>
+        <div class="ci-s">외투·바람막이·기모내의·담요·보온병 · 해상 체감 5~10℃ 더 낮음</div></div></div>
+      <div class="check-item"><div class="ck">✓</div><div class="ci-b">
+        <div class="ci-t">항공 휠체어 서비스·통로석·특별식</div>
+        <div class="ci-s">출발 48h 전 신청</div></div></div>
+      <div class="check-item"><div class="ck">✓</div><div class="ci-b">
+        <div class="ci-t">eSIM·O형 멀티 어댑터 / 트래블카드</div>
+        <div class="ci-s">230V·O형 플러그 · AUD 충전 + 소액 현금</div></div></div>
+    </div>
+    <div class="card flat" style="font-size:13px;color:var(--gray);">
+      환율 참고 <b style="color:var(--ink)">1 AUD ≈ 1,050~1,080원</b>(2026.6 전망) · 시차 시드니 +1h · 호주는 팁 의무 없음.
+    </div>
+  </section>
+
+  <!-- 비용 -->
+  <section class="section" id="cost">
+    <div class="section-head"><h2>비용 요약</h2><p>AUD ≈ 1,070원 · 4인 기준 확정 투어</p></div>
+    <div class="card">
+      <div class="cost-row"><div class="c-name">반일투어 (6/27)<span class="cs">25,000 × 4</span></div><div class="c-val">100,000원</div></div>
+      <div class="cost-row"><div class="c-name">블루마운틴 (6/29)<span class="cs">AUD 432 클룩 묶음</span></div><div class="c-val">약 462,000원</div></div>
+      <div class="cost-row"><div class="c-name">울릉공·키아마 (6/30)<span class="cs">예약서 기준 합산</span></div><div class="c-val">확정가 별도</div></div>
+      <div class="cost-row"><div class="c-name">고래크루즈 (7/2)<span class="cs">97,700 × 4</span></div><div class="c-val">390,800원</div></div>
+      <div class="cost-row"><div class="c-name">야경투어 (7/2)<span class="cs">72,300 × 4</span></div><div class="c-val">289,200원</div></div>
+      <div class="cost-total"><div>투어 소계 <span style="font-size:12px;font-weight:400;color:var(--gray2)">(울릉공 제외)</span></div><div>약 1,242,000원</div></div>
+    </div>
+    <div class="card flat" style="font-size:13px;color:var(--gray);line-height:1.7;">
+      <b style="color:var(--ink)">별도 비용</b><br>
+      · 항공: 직항 왕복 이코노미 약 90만~150만원/인(성수기·변동)<br>
+      · 숙소: Meriton Suites Kent Street 아파트형 6박(아고다 예약 확정)<br>
+      · 현지: 택시/Uber·마트·ETA AUD 20×4·어댑터·eSIM (아파트 취사로 식비 절감)
+    </div>
+  </section>
+
+  <!-- 주의사항 -->
+  <section class="section" id="notice">
+    <div class="section-head"><h2>핵심 주의사항</h2></div>
+    <div class="card warn">
+      <ul class="nlist">
+        <li><b>80세 동반 안전</b> — 보행 ≤2km·연속 ≤20분·30분 착석·2h 화장실. 모든 명소 평지 단거리 조망, 계단/트레킹 배제. 겨울 낙상·저체온 주의.</li>
+        <li><b>연속 투어(6/29·6/30)</b> — 이틀 연속 새벽·9~10h가 최대 부담. 6/28·7/1 휴식일을 꼭 지키기.</li>
+        <li><b>고래크루즈(7/2)</b> — 겨울 해상 멀미·강풍·결항 리스크. 실내 라운지석·멀미약·방한 풀세트·핫팩 필수.</li>
+        <li><b>6월 우천</b> — 시드니 연중 최다 강수월. 매일 실내 대안(QVB·Westfield·차창) 준비.</li>
+        <li><b>이른 일몰(~17시)</b> — 투어 복귀가 이미 야간. 외출 최소.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 확인 필요 -->
+  <section class="section" id="todo">
+    <div class="section-head"><h2>출발 전 재확인 사항</h2><p>현재 미확정 · 출발 전 꼭 확인</p></div>
+    <div class="card">
+      <ul class="nlist">
+        <li>어머니 <b>식이제한·저작 상태</b> — 식당 소프트 메뉴 확정에 영향</li>
+        <li><b>멀미약 복용 가부</b> 의사 상담 — 7/2 크루즈 전 필수</li>
+        <li>크루즈 <b>실내석 사전지정·난방 여부</b> — “all-weather 라운지”는 확인, 난방·좌석 보장 미확인 → 예약 시 직접 문의</li>
+        <li><b>항공 정확 출도착 시각</b> — 6/27 반일투어·7/3 귀국 강도 좌우</li>
+        <li>숙소 접근성 객실·가격 견적, <b>울릉공 투어 확정가</b></li>
+        <li>여권 4인 <b>전자여권 여부·만기일</b>(2026-12-27 이후)</li>
+        <li>환율·여행경보·ETA 정책 — 출발 직전 공식 출처 재확인</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="foot">
+    <div class="em">🐨</div>
+    따뜻하게 입고, 천천히 둘러보고,<br>어머니 컨디션을 최우선으로.<br>좋은 여행 되세요.
+    <div style="margin-top:18px;font-size:11px;color:#b0b0b8;">일정 사진 출처 · Klook</div>
+  </div>
+
+</div>
+
+<!-- Lightbox overlay -->
+<div class="lb" id="lb" aria-hidden="true">
+  <button class="lb-close" id="lbClose" aria-label="닫기">✕</button>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="이전">‹</button>
+  <img class="lb-img" id="lbImg" src="" alt="" />
+  <button class="lb-nav lb-next" id="lbNext" aria-label="다음">›</button>
+  <div class="lb-count" id="lbCount"></div>
+</div>
+
+<script>
+  document.querySelectorAll('.acc-head').forEach(function (h) {
+    h.addEventListener('click', function () {
+      var acc = h.parentElement;
+      var body = acc.querySelector('.acc-body');
+      var isOpen = acc.classList.contains('open');
+      if (isOpen) {
+        body.style.maxHeight = null;
+        acc.classList.remove('open');
+      } else {
+        acc.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + 'px';
+      }
+    });
+  });
+  // 요약 카드에서 점프하면 해당 일자 자동 펼침
+  function openFromHash() {
+    var id = location.hash.replace('#', '');
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (el && el.classList.contains('acc') && !el.classList.contains('open')) {
+      var body = el.querySelector('.acc-body');
+      el.classList.add('open');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    }
+  }
+  window.addEventListener('hashchange', openFromHash);
+  window.addEventListener('load', openFromHash);
+
+  // ===== Lightbox (썸네일 탭하면 크게 보기) =====
+  (function () {
+    var lb = document.getElementById('lb');
+    var lbImg = document.getElementById('lbImg');
+    var lbCount = document.getElementById('lbCount');
+    var group = [];   // 현재 갤러리의 large 이미지 경로 목록
+    var idx = 0;
+
+    function toLarge(src) {
+      // assets/klook/opera-1.webp -> assets/klook/large/opera-1.webp
+      return src.replace(/(assets\/klook\/)([^\/]+\.webp)$/, '$1large/$2');
+    }
+    function render() {
+      lbImg.src = group[idx];
+      lbCount.textContent = (idx + 1) + ' / ' + group.length;
+    }
+    function open(galleryImgs, start) {
+      group = Array.prototype.map.call(galleryImgs, function (im) { return toLarge(im.getAttribute('src')); });
+      idx = start;
+      render();
+      lb.classList.add('show');
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      lb.classList.remove('show');
+      lb.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    function step(d) { idx = (idx + d + group.length) % group.length; render(); }
+
+    document.querySelectorAll('.gallery').forEach(function (g) {
+      var imgs = g.querySelectorAll('img');
+      imgs.forEach(function (im, i) {
+        im.addEventListener('click', function () { open(imgs, i); });
+      });
+    });
+
+    document.getElementById('lbClose').addEventListener('click', close);
+    document.getElementById('lbPrev').addEventListener('click', function (e) { e.stopPropagation(); step(-1); });
+    document.getElementById('lbNext').addEventListener('click', function (e) { e.stopPropagation(); step(1); });
+    lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+    document.addEventListener('keydown', function (e) {
+      if (!lb.classList.contains('show')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft') step(-1);
+      else if (e.key === 'ArrowRight') step(1);
+    });
+    // 모바일 스와이프
+    var sx = 0;
+    lb.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener('touchend', function (e) {
+      var dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 45) step(dx < 0 ? 1 : -1);
+    }, { passive: true });
+  })();
+</script>
+</body>
+</html>
